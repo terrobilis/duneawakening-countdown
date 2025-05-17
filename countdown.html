@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dune Awakening Countdown</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: url('dune_bg.png') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Segoe UI', sans-serif;
+      color: #D6BA7F;
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-end;
+    }
+
+    #countdown {
+      font-size: 5rem;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 4px #000;
+      background-color: rgba(0, 0, 0, 0);
+      padding: 8rem 4rem;
+      border-radius: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div id="countdown">Loading...</div>
+
+  <script>
+    const countdownEl = document.getElementById('countdown');
+    const launchTime = new Date('2025-06-05T05:00:00-07:00').getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = launchTime - now;
+
+      if (distance <= 0) {
+        countdownEl.innerText = "Access is live!";
+        clearInterval(timer);
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdownEl.innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    const timer = setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
+</body>
+</html>
